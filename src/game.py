@@ -19,25 +19,32 @@ class Game:
         """
         Sets up the initial game state, including nodes, edges, and their relationships.
         """
-        ...
+        self.populate_inventories()
+        self.populate_edges()
+        self.set_up_initial_orders()
 
-    def populate_inventories(self):
+    def populate_inventories(self, initial_inventory):
         """
         Fills in the initial inventory levels for all nodes.
         """
-        ...
+        for node in self.nodes:
+            node.inventory = initial_inventory
 
     def populate_edges(self):
         """
         Adds initial batches to the edges to simulate supply chain flow at the start of the game.
         """
-        ...
+        for edge in self.edges:
+            # TODO: return here after defining Batch and Edge classes
+            # define populating the list of batches in every edge with edge.delay number of batches
+            ...
 
-    def set_up_initial_orders(self):
+    def set_up_initial_orders(self, initial_order):
         """
         Sets up the initial orders for all the participants to start the game.
         """
-        ...
+        for edge in self.edges:
+            edge.order = initial_order
 
     def update_turn(self):
         """
