@@ -12,6 +12,8 @@ class SupplyChainNode:
         self.inventory = inventory
         if not isinstance(type, NodeType):
             raise ValueError(f"Invalid type: {type}. Must be a NodeType value.")
+        else:
+            self.type = type
 
 supply_chain_graph = nx.DiGraph()
 
