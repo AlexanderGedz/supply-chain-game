@@ -15,52 +15,18 @@ class SupplyChainNode:
 
 supply_chain_graph = nx.DiGraph()
 
-nodes_list = [
-    (
-        0, {
-            "title": "Production",
-            "type": "source"
-        }
-    ),
-    (
-        1, {
-            "title": "Factory",
-            "type": "intermediary",
-            "inventory": 4
-        }
-    ),
-    (
-        2, {
-            "title": "Distributor",
-            "type": "intermediary",
-            "inventory": 4
-        }
-    ),
-    (
-        3, {
-            "title": "Wholesaler",
-            "type": "intermediary",
-            "inventory": 4
-        }
-    ),
-    (
-        4, {
-            "title": "Retailer",
-            "type": "intermediary",
-            "inventory": 4
-        }
-    ),
-    (
-        5, {
-            "title": "End Consumer",
-            "type": "consumer"
-        }
-    )
-]
+production = SupplyChainNode("Production", None, NodeType.SOURCE)
+factory = SupplyChainNode("Factory", 12, NodeType.INTERMEDIARY)
+distributor = SupplyChainNode("Distributor", 12, NodeType.INTERMEDIARY)
+wholesaler = SupplyChainNode("Wholesaler", 12, NodeType.INTERMEDIARY)
+retailer = SupplyChainNode("Retailer", 12, NodeType.INTERMEDIARY)
+end_consumer = SupplyChainNode("End Consumer", None, NodeType.END_CONSUMER)
+
+nodes_list = [production,factory,distributor,wholesaler,retailer,end_consumer]
 
 edges_list = [
     (
-        0, 1, {
+        production, factory, {
             "distance": 2,
             "batches_en_route": [4, 4],
             "order": 4,
@@ -68,7 +34,7 @@ edges_list = [
         }
     ),
     (
-        1, 2, {
+        factory, distributor, {
             "distance": 2,
             "batches_en_route": [4, 4],
             "order": 4,
@@ -76,7 +42,7 @@ edges_list = [
         }
     ),
     (
-        2, 3, {
+        distributor, wholesaler, {
             "distance": 2,
             "batches_en_route": [4, 4],
             "order": 4,
@@ -84,7 +50,7 @@ edges_list = [
         }
     ),
     (
-        3, 4, {
+        wholesaler, retailer, {
             "distance": 2,
             "batches_en_route": [4, 4],
             "order": 4,
@@ -92,7 +58,7 @@ edges_list = [
         }
     ),
     (
-        4, 5, {
+        retailer, end_consumer, {
             "distance": 2,
             "batches_en_route": [4, 4],
             "order": 4,
