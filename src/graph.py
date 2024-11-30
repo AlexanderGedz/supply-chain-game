@@ -1,4 +1,17 @@
+from enum import Enum
 import networkx as nx
+
+class NodeType(Enum):
+    SOURCE = "source"
+    INTERMEDIARY = "intermediary"
+    END_CONSUMER = "end_consumer"
+
+class SupplyChainNode:
+    def __init__(self, title, inventory, type):
+        self.title = title
+        self.inventory = inventory
+        if not isinstance(type, NodeType):
+            raise ValueError(f"Invalid type: {type}. Must be a NodeType value.")
 
 supply_chain_graph = nx.DiGraph()
 
