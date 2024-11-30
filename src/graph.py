@@ -31,8 +31,14 @@ class SupplyChainEdge:
         self.backlog = backlog
 
     def __str__(self):
-        return (f"Edge({self.source.title} -> {self.target.title}, "
-                f"distance={self.distance}, order={self.order}, backlog={self.backlog})")
+        return (
+            f"{self.source.title} -> {self.target.title}: {{"
+            f"'distance': {self.distance}, "
+            f"'batches_en_route': {self.batches_en_route}, "
+            f"'order': {self.order}, "
+            f"'backlog': {self.backlog}"
+            f"}}"
+        )
 
 supply_chain_graph = nx.DiGraph()
 
@@ -65,6 +71,7 @@ def display_graph(graph):
         print(f"  {node}")
     print("\nEdges:")
     for source, target, attributes in graph.edges(data=True):
-        print(f"  {source.title} -> {target.title}: {attributes}")
+        edge = attributes.get("data")
+        print(f"  {edge}")
 
 display_graph(supply_chain_graph)
