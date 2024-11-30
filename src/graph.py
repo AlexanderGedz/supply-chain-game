@@ -6,6 +6,9 @@ class NodeType(Enum):
     INTERMEDIARY = "intermediary"
     END_CONSUMER = "end_consumer"
 
+    def __str__(self):
+        return self.value
+
 class SupplyChainNode:
     def __init__(self, title, inventory, type):
         self.title = title
@@ -14,6 +17,9 @@ class SupplyChainNode:
             raise ValueError(f"Invalid type: {type}. Must be a NodeType value.")
         else:
             self.type = type
+
+    def __str__(self):
+        return(f"{self.title}: {{'inventory': {self.inventory}, 'type': '{self.type}'}}")
 
 supply_chain_graph = nx.DiGraph()
 
@@ -75,9 +81,9 @@ supply_chain_graph.add_edges_from(edges_list)
 def display_graph(graph):
     print("Nodes:")
     for node, attributes in graph.nodes(data=True):
-        print(f"  {node}: {attributes}")
+        print(f"  {node}")
     print("\nEdges:")
     for source, target, attributes in graph.edges(data=True):
-        print(f"  {source} -> {target}: {attributes}")
+        print(f"  {source.title} -> {target.title}: {attributes}")
 
 display_graph(supply_chain_graph)
