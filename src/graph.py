@@ -46,50 +46,18 @@ end_consumer = SupplyChainNode("End Consumer", None, NodeType.END_CONSUMER)
 nodes_list = [production,factory,distributor,wholesaler,retailer,end_consumer]
 
 edges_list = [
-    (
-        production, factory, {
-            "distance": 2,
-            "batches_en_route": [4, 4],
-            "order": 4,
-            "backlog": 0
-        }
-    ),
-    (
-        factory, distributor, {
-            "distance": 2,
-            "batches_en_route": [4, 4],
-            "order": 4,
-            "backlog": 0
-        }
-    ),
-    (
-        distributor, wholesaler, {
-            "distance": 2,
-            "batches_en_route": [4, 4],
-            "order": 4,
-            "backlog": 0
-        }
-    ),
-    (
-        wholesaler, retailer, {
-            "distance": 2,
-            "batches_en_route": [4, 4],
-            "order": 4,
-            "backlog": 0
-        }
-    ),
-    (
-        retailer, end_consumer, {
-            "distance": 2,
-            "batches_en_route": [4, 4],
-            "order": 4,
-            "backlog": 0
-        }
-    )
+    SupplyChainEdge(production, factory, distance=2, batches_en_route=[4, 4], order=4, backlog=0),
+    SupplyChainEdge(factory, distributor, distance=2, batches_en_route=[4, 4], order=4, backlog=0),
+    SupplyChainEdge(distributor, wholesaler, distance=2, batches_en_route=[4, 4], order=4, backlog=0),
+    SupplyChainEdge(wholesaler, retailer, distance=2, batches_en_route=[4, 4], order=4, backlog=0),
+    SupplyChainEdge(retailer, end_consumer, distance=2, batches_en_route=[4, 4], order=4, backlog=0)
 ]
 
 supply_chain_graph.add_nodes_from(nodes_list)
-supply_chain_graph.add_edges_from(edges_list)
+
+# Add edges to the graph with custom SupplyChainEdge instances as attributes
+for edge in edges_list:
+    supply_chain_graph.add_edge(edge.source, edge.target, data=edge)
 
 def display_graph(graph):
     print("Nodes:")
