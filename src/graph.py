@@ -21,6 +21,19 @@ class SupplyChainNode:
     def __str__(self):
         return(f"{self.title}: {{'inventory': {self.inventory}, 'type': '{self.type}'}}")
 
+class SupplyChainEdge:
+    def __init__(self, source, target, distance, batches_en_route=None, order=0, backlog=0):
+        self.source = source  # Source node
+        self.target = target  # Target node
+        self.distance = distance
+        self.batches_en_route = batches_en_route if batches_en_route else []
+        self.order = order
+        self.backlog = backlog
+
+    def __str__(self):
+        return (f"Edge({self.source.title} -> {self.target.title}, "
+                f"distance={self.distance}, order={self.order}, backlog={self.backlog})")
+
 supply_chain_graph = nx.DiGraph()
 
 production = SupplyChainNode("Production", None, NodeType.SOURCE)
